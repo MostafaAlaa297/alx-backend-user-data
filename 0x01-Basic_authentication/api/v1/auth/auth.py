@@ -32,7 +32,15 @@ class Auth:
         :param request: The Flask request object.
         :return: None, as the implementation will be added later.
         """
-        return None
+        """Get the authorization header from the request."""
+        if request is None:
+            return None
+
+        auth_header = request.headers.get('Authorization')
+        if auth_header is None:
+            return None
+
+        return auth_header
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
