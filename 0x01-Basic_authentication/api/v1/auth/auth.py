@@ -14,7 +14,18 @@ class Auth:
         are excluded from authentication.
         :return: False for now, as implementation will be added later.
         """
-        return False
+        if path is None or excluded_paths is None or len(excluded_paths) == 0:
+            return True
+
+        if not path.endswith('/'):
+            path += '/'
+
+        for excluded_path in excluded_paths:
+            if excluded_path.endswith('/') and excluded_path == path:
+                return False
+
+
+        return True
 
     def authorization_header(self, request=None) -> str:
         """
