@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
-"""Basic auth"""
-from auth import Auth
+"""
+BasicAuth module for the API authentication.
+"""
+
+from api.v1.auth.auth import Auth
 
 class BasicAuth(Auth):
-    """Inherit from auth"""
+    """BasicAuth class that inherits from Auth."""
     pass
