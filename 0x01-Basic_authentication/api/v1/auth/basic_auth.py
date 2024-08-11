@@ -5,6 +5,7 @@ BasicAuth module for the API authentication.
 from models.user import User
 from api.v1.auth.auth import Auth
 import base64
+from typing import TypeVar
 
 
 class BasicAuth(Auth):
