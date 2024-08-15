@@ -44,7 +44,17 @@ def forbidden(error) -> str:
 
 @app.before_request
 def before_request():
-    """Handler that runs before each request to filter based on authentication."""
+    """
+    Handler that runs before each request to filter based on authentication.
+    This function is triggered before each request to determine if the request
+    should be allowed based on the authentication.
+    It checks if the request path is in the excluded paths,
+    if the Authorization header is present, and if the
+    current user is authenticated. If any of these checks fail, an appropriate
+    error response is returned.
+    Returns:
+        Response: JSON response with an error message if authentication fails.
+    """
     if auth is None:
         return
 
@@ -62,7 +72,8 @@ def before_request():
 
     if auth.current_user(request) is None:
         return jsonify({"error": "Forbidden"}), 403
-    request.current_user = auth.current_user(request)
+
+    reqiuest.current_user = auth.current_user(request)
 
 
 if __name__ == "__main__":
