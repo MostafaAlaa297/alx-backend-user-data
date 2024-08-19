@@ -6,6 +6,8 @@ import re
 from typing import List
 import logging
 
+PII_FIELDS = ("name", "email", "phone_number", "ssn", "password")
+
 
 def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
     """Redact sensitive information from a log message."""
@@ -29,4 +31,16 @@ class RedactingFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         """Format the log record, filtering sensitive information."""
         original_message = super(RedactingFormatter, self).format(record)
-        return filter_datum(self.fields, self.REDACTION, original_message, self.SEPARATOR) 
+        return filter_datum(self.fields, self.REDACTION, original_message, self.SEPARATOR)
+
+    def get_logger() -> logging.Logger:
+        """returns a logging.Logger object"""
+        logger = logging.getLogger("user_data")
+        logger.setLevel(logging.INFO)
+        loger.propagate = False
+
+        handler = logging.StreamHandler()
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+
+        return logger
